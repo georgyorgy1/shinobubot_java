@@ -1,0 +1,21 @@
+ShinobuBot
+
+Information Commands:
+!about - get information about the bot
+!help - Useless help page
+!cmds - This page
+
+Shitpost Commands:
+!checkem - See if you're lucky enough to get doubles.
+!currentyear <args> - I can't believe you're doing that in the current year
+
+Fun Commands:
+!flip - A basic coin flip. Heads or tails.
+!palindrome  <arg> - checks if the word is a palindrome.
+!ping - pong!
+
+Owner Commands:
+!kill - kills the bot
+!mindtrick <channel ID> <args> - "This is not the command you are looking for."
+!changegame <args> - Changes the bot's presence message
+!acr <command name> / <response> - Add a custom command. For owners and admins only.
