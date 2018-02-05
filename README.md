@@ -13,7 +13,7 @@ Optional Requirements (if you're building it from source):
 
 Installation:
 1. Download the binary zip here:
-2. Go to the files folder and then open config.txt
+2. Go to /Shinobu/files/config.txt
 3. Replace the token and owner ID placeholder with your token and owner ID (your account ID)
 4. Open a terminal window (for Linux/Mac OS X/BSD) or cmd.exe (for Windows), go to the bot's directory and then type:
 ```sh
