@@ -19,7 +19,7 @@ Optional Requirements (if you're building it from source):
 
 Installation:
 1. Download the binary zip here: https://github.com/georgyorgy1/shinobubot_java/raw/master/shinobubot-binary-20180205-1530.zip
-2. Go to /Shinobu/files/config.txt
+2. Go to /dist/files/config.txt
 3. Replace the token and owner ID placeholder with your token and owner ID (your account ID)
 4. Open a terminal window (for Linux/Mac OS X/BSD) or cmd.exe (for Windows), go to the bot's directory and then type:
 ```sh
