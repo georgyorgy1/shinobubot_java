@@ -52,7 +52,8 @@ public class AboutCommand extends Command
         String jdkVersion = "JDK Version: " + System.getProperty("java.version");
         String memory = "Memory: " + Long.toString((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576) + " / " + Long.toString(Runtime.getRuntime().totalMemory() / 1048576) + " MB";
         String shard = "Shard: " + ce.getJDA().getShardInfo();
-        String message = botName + "\n" + "\n" + author + "\n" + build + "\n" + jdkVersion + "\n" + memory + "\n" + shard;
+        String sourceCode = "Source Code: " + "https://github.com/georgyorgy1/shinobubot_java";
+        String message = botName + "\n" + "\n" + author + "\n" + build + "\n" + jdkVersion + "\n" + memory + "\n" + shard + "\n" + sourceCode;
         
         ce.reply(message);
     }
