@@ -1,10 +1,9 @@
 # ShinobuBot
 ```
-Stage: Alpha
+Stage: Beta
 Version: v1.0
-Build: 20180205-1530
+Build: 20180509-1832
 ```
-
 
 ShinobuBot is a cute multipurpose Discord Bot written in Java. It uses the JDA library to interact with Discord
 
