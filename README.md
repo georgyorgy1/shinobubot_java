@@ -12,10 +12,12 @@ Requirements:
 - Java 1.8 (OpenJDK 8 or Oracle JDK 8)
 
 Optional Requirements (if you're building it from source): 
-- JDA Discord Library (Latest)
+- JDA Discord Library (Latest) (with Dependencies)
 - JDA Utilites (All Jars) (Latest)
 - Logback
 - SLF4J
+- JSON Simple
+- SQLite Java Driver
 
 Installation:
 ```
