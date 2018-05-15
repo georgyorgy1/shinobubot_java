@@ -1,5 +1,0 @@
-<your token here>
-<your account ID here>
-!
-20180205-1530
-ShinobuBot v1.0 Alpha
