@@ -29,7 +29,7 @@ Binary Installation:
 Building from source:
 1. Clone the repository
 2. Open the project folder using NetBeans
-3. Add the required libraries to the library
+3. Add the required libraries in NetBeans
 4. Edit config.json (located in the files directory)
 
 To see the commands, type !cmds or !help.
