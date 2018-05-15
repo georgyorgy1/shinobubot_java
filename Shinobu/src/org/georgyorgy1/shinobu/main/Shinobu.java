@@ -21,17 +21,20 @@ SOFTWARE.
  */
 package org.georgyorgy1.shinobu.main;
 
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
-import javax.security.auth.login.LoginException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.core.JDA;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
@@ -41,6 +44,10 @@ import org.georgyorgy1.shinobu.commands.fun.PalindromeCommand;
 import org.georgyorgy1.shinobu.commands.fun.PingCommand;
 import org.georgyorgy1.shinobu.commands.info.AboutCommand;
 import org.georgyorgy1.shinobu.commands.info.HelpCommand;
+import org.georgyorgy1.shinobu.commands.moderation.BanCommand;
+import org.georgyorgy1.shinobu.commands.moderation.KickCommand;
+import org.georgyorgy1.shinobu.commands.moderation.RemoveRoleCommand;
+import org.georgyorgy1.shinobu.commands.moderation.SetRoleCommand;
 import org.georgyorgy1.shinobu.commands.owner.ChangeGameCommand;
 import org.georgyorgy1.shinobu.commands.owner.MindtrickCommand;
 import org.georgyorgy1.shinobu.commands.owner.ShutdownCommand;
@@ -48,17 +55,38 @@ import org.georgyorgy1.shinobu.commands.shitpost.CheckEmCommand;
 import org.georgyorgy1.shinobu.commands.shitpost.CurrentYearCommand;
 import org.georgyorgy1.shinobu.commands.util.AddCustomCommand;
 import org.georgyorgy1.shinobu.commands.util.CustomCommand;
+import org.georgyorgy1.shinobu.commands.util.ListCustomCommand;
+import org.georgyorgy1.shinobu.commands.util.RemoveCustomCommand;
 
-public class Shinobu extends ListenerAdapter
+public class Shinobu
 {
-    public static void main(String[] args) throws IOException, LoginException
+    public static void main(String[] args) throws IOException, javax.security.auth.login.LoginException
     {
-        List<String> config = Files.readAllLines(Paths.get("files/config.txt"));
+        Logger logger = LoggerFactory.getLogger(Shinobu.class.getName());
+        
+        //Get config from JSON
+        JSONParser parser = new JSONParser();
+        JSONObject object = null;
+        
+        try 
+        {
+            object = (JSONObject) parser.parse(new FileReader("files/config.json"));
+        }
+        
+        catch (ParseException ex)
+        {
+            logger.error(ex.toString());
+        }
+        
+        //Create a new bot client
         CommandClientBuilder client = new CommandClientBuilder();
 
+        //Setup bot presence
         client.setGame(Game.playing("!cmds for commands"));
-        client.setOwnerId(config.get(1));
-        client.setPrefix(config.get(2));
+        client.setOwnerId(object.get("owner_id").toString());
+        client.setPrefix(object.get("prefix").toString());
+        
+        //Add commands
         client.addCommand(new ShutdownCommand());
         client.addCommand(new MindtrickCommand());
         client.addCommand(new FlipCommand());
@@ -70,13 +98,26 @@ public class Shinobu extends ListenerAdapter
         client.addCommand(new AboutCommand());
         client.addCommand(new CheckEmCommand());
         client.addCommand(new CurrentYearCommand());
+        client.addCommand(new ListCustomCommand());
+        client.addCommand(new SetRoleCommand());
+        client.addCommand(new RemoveRoleCommand());
+        client.addCommand(new RemoveCustomCommand());
+        client.addCommand(new BanCommand());
+        client.addCommand(new KickCommand());
+        
+        //no defaults
+        client.useHelpBuilder(false);
 
-        JDABuilder shard = new JDABuilder(AccountType.BOT).setToken(config.get(0)).addEventListener(new EventWaiter()).addEventListener(client.build()).addEventListener(new CustomCommand());
-        int maxShard = 3;
+        //Start bot
+        JDA jda = new JDABuilder(AccountType.BOT).setToken(object.get("token").toString()).addEventListener(new EventWaiter()).addEventListener(client.build()).addEventListener(new CustomCommand()).buildAsync();
+        
+        /*
+        int maxShard = 1;
 
         for (int i = 0; i < maxShard; i++)
         {
             shard.useSharding(i, maxShard).buildAsync();
         }
+        */
     }
 }

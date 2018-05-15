@@ -8,6 +8,7 @@ public class MindtrickCommand extends Command
     public MindtrickCommand()
     {
         this.name = "mindtrick";
+        this.help = "This is not the command you are looking for. Usage is !mindtrick <channel ID> <args>";
     }
     
     @Override

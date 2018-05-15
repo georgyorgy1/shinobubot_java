@@ -1,10 +1,9 @@
 package org.georgyorgy1.shinobu.commands.util;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +21,7 @@ public class AddCustomCommand extends Command
     public AddCustomCommand()
     {
         this.name = "acr";
+        this.help = "Add a custom command. For owners and admins only. Usage is !acr <command name> | <response>";
     }
 
     @Override
@@ -34,44 +34,60 @@ public class AddCustomCommand extends Command
             List<String> temp = new ArrayList<>();
             int i = 0;
 
-            while (!args[i].equals("/"))
+            while (!args[i].equals("|"))
             {
                 temp.add(args[i]);
                 i++;
             }
 
             String commandName = String.join(" ", temp);
-
-            try
-            {
-                Files.write(Paths.get("files/customcommands.txt"), (commandName + "\n").getBytes(), StandardOpenOption.APPEND);
-            }
-
-            catch (IOException exception)
-            {
-                logger.error(exception.toString());
-            }
-
             String response = "";
 
-            for (int j = Arrays.asList(args).indexOf("/") + 1; j < args.length; j++)
+            for (int j = Arrays.asList(args).indexOf("|") + 1; j < args.length; j++)
             {
                 response = response + args[j] + " ";
             }
-
+            
+            String url = "jdbc:sqlite:files/shinobu.db";
+            Connection connection = null;
+            
             try
             {
-                File file = new File("files/custom commands/" + commandName + ".txt");
-                file.createNewFile();
-                Files.write(Paths.get("files/custom commands/" + commandName + ".txt"), response.getBytes(), StandardOpenOption.APPEND);
+                connection = DriverManager.getConnection(url);
             }
-
-            catch (IOException exception)
+            
+            catch (SQLException exception)
             {
-                logger.error(exception.toString());
+                logger.error(exception.toString(), exception);
             }
-
-            logger.info("A new command was added!"); //remove when all commands are isolated by guild
+            
+            PreparedStatement preparedStatement = null;
+            String sql = "INSERT INTO custom_commands VALUES (?, ?, ?)";
+            
+            try
+            {
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, ce.getGuild().getId());
+                preparedStatement.setString(2, commandName);
+                preparedStatement.setString(3, response);
+                preparedStatement.executeUpdate();
+            }
+            
+            catch (SQLException exception)
+            {
+                logger.error(exception.toString(), exception);
+            }
+            
+            try
+            {
+                connection.close();
+            }
+            
+            catch (SQLException exception)
+            {
+                logger.error(exception.toString(), exception);
+            }
+            
             ce.reply("Command added!");
         }
     }

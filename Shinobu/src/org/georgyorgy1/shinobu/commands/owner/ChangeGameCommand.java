@@ -10,6 +10,7 @@ public class ChangeGameCommand extends Command
     public ChangeGameCommand()
     {
         this.name = "changegame";
+        this.help = "Changes the bot's presence message. Usage is !changegame <args>";
     }
 
     @Override
@@ -18,6 +19,7 @@ public class ChangeGameCommand extends Command
         if (ce.isOwner() == true)
         {
             ce.getJDA().getPresence().setGame(Game.of(Game.GameType.DEFAULT, ce.getArgs()));
+            ce.reply("Successfully changed game name to: " + ce.getArgs());
         }
     }
 }

@@ -8,6 +8,7 @@ public class CurrentYearCommand extends Command
     public CurrentYearCommand()
     {
         this.name = "currentyear";
+        this.help = "I can't believe you're doing that in the current year";
     }
 
     @Override

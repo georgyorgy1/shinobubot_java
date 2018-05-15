@@ -11,7 +11,8 @@ public class ShutdownCommand extends Command
     public ShutdownCommand()
     {
         this.name = "kill";
-        this.aliases = new String[]{"shutdown", "terminate"};
+        this.help = "kills the bot";
+        this.aliases = new String[]{"shutdown", "terminate", "die"};
     }
 
     @Override

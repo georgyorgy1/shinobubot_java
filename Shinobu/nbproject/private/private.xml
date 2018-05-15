@@ -3,19 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/fun/PingCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/owner/MindtrickCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/info/AboutCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/shitpost/CurrentYearCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/fun/FlipCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/info/HelpCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/util/AddCustomCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/owner/ChangeGameCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/util/CustomCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/owner/ShutdownCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/main/Shinobu.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/fun/PalindromeCommand.java</file>
-            <file>file:/home/squidward/NetBeansProjects/Shinobu/src/org/georgyorgy1/shinobu/commands/shitpost/CheckEmCommand.java</file>
+            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/commands/util/CustomCommand.java</file>
+            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/main/Shinobu.java</file>
+            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/commands/util/ListCustomCommand.java</file>
         </group>
     </open-files>
 </project-private>

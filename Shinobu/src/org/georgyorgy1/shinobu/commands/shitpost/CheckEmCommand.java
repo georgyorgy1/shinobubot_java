@@ -10,6 +10,7 @@ public class CheckEmCommand extends Command
     public CheckEmCommand()
     {
         this.name = "checkem";
+        this.help = "See if you're lucky enough to get doubles.";
     }
 
     @Override

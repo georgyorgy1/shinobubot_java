@@ -10,6 +10,7 @@ public class FlipCommand extends Command
     public FlipCommand()
     {
         this.name = "flip";
+        this.help = "A basic coin flip. Heads or tails.";
     }
 
     @Override

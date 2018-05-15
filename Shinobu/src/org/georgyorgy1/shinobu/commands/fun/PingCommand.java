@@ -8,6 +8,7 @@ public class PingCommand extends Command
     public PingCommand()
     {
         this.name = "ping";
+        this.help = "pong!";
     }
 
     @Override

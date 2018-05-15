@@ -1,9 +1,10 @@
 package org.georgyorgy1.shinobu.commands.util;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -19,36 +20,74 @@ public class CustomCommand extends ListenerAdapter
     @Override
     public void onMessageReceived(MessageReceivedEvent event)
     {
-        Logger logger = LoggerFactory.getLogger("org.georgyorgy1.shinobu.commands.util.CustomCommand");
-        Message message = event.getMessage();
-        MessageChannel channel = event.getChannel();
-        List<String> customCommands = null;
-
-        try
+        if (event.getAuthor().isBot() == false)
         {
-            customCommands = Files.readAllLines(Paths.get("files/customcommands.txt"));
-        }
-
-        catch (IOException exception)
-        {
-            logger.error(exception.toString());
-        }
-
-        if (customCommands.contains(message.getContentDisplay()))
-        {
-            String response = null;
+            Logger logger = LoggerFactory.getLogger("org.georgyorgy1.shinobu.commands.util.CustomCommand");
+            Connection connection = null;
+            String url = "jdbc:sqlite:files/shinobu.db";
 
             try
             {
-                response = new String(Files.readAllBytes(Paths.get("files/custom commands/" + message.getContentDisplay() + ".txt")));
+                connection = DriverManager.getConnection(url);
             }
 
-            catch (IOException exception)
+            catch (SQLException exception)
             {
-                logger.error(exception.toString());
+                logger.error(exception.toString(), exception);
             }
 
-            channel.sendMessage(response).queue();
+            PreparedStatement preparedStatement = null;
+            String sql = "SELECT response FROM custom_commands WHERE guild = ? AND command_name = ? ORDER BY RANDOM() LIMIT 1";
+            Message message = event.getMessage();
+            String response = "";
+
+            try
+            {
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, event.getGuild().getId());
+                preparedStatement.setString(2, message.getContentDisplay());
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next())
+                {
+                    response = resultSet.getString("response");
+                }
+            }
+
+            catch (SQLException exception)
+            {
+                logger.error(exception.toString(), exception);
+            }
+
+            if (!response.equals(""))
+            {
+                MessageChannel channel = event.getChannel();
+                channel.sendMessage(response).queue();
+
+                try
+                {
+                    connection.close();
+                }
+
+                catch (SQLException exception)
+                {
+                    logger.error(exception.toString(), exception);
+                }
+            }
+
+            else
+            {
+                try
+                {
+                    connection.close();
+                }
+
+                catch (SQLException exception)
+                {
+                    logger.error(exception.toString(), exception);
+                }
+            }
         }
     }
 }

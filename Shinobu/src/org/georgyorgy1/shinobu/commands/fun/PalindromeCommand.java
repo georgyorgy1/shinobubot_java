@@ -8,6 +8,7 @@ public class PalindromeCommand extends Command
     public PalindromeCommand()
     {
         this.name = "palindrome";
+        this.help = "checks if the word is a palindrome. Usage is !palindrome <arg>";
     }
 
     @Override
