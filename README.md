@@ -19,7 +19,8 @@ Optional Requirements (if you're building it from source):
 
 Installation:
 ```
-<to be fixed
+Binary Installation:
+<coming soon>
 ```
 
 ```
@@ -28,7 +29,7 @@ Building from source:
 1. Clone the repository
 2. Open the project folder in NetBeans
 3. Add the Optional Requirements in the library
-4. Edit config.txt (located in the files directory)
+4. Edit config.json (located in the files directory)
 
 To see the commands, type !cmds or !help.
 ```
