@@ -18,8 +18,9 @@ Optional Requirements (if you're building it from source):
 - SLF4J
 
 Installation:
-<to be fixed>
-  
+```
+<to be fixed
+```
 
 ```
 
@@ -29,4 +30,5 @@ Building from source:
 3. Add the Optional Requirements in the library
 4. Edit config.txt (located in the files directory)
 
-To see the commands, type !cmds.
+To see the commands, type !cmds or !help.
+```
