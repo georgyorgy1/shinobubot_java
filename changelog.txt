@@ -1,0 +1,17 @@
+2018-02-05:
+- Initial upload to GitHub
+- Added Shitposting Features
+- Added Owner Features
+- Added Fun Features
+- Added Custom Commands (Add and Display Only)
+
+2018-05-15:
+- Added List Custom Commands and Remove Custom Commands
+- Custom Commands now uses SQLite instead of text files
+- Replaced Text Files with JSON files for configuration
+- Added Moderation Commands
+
+2018-06-15:
+- Fixed a custom command bug. Only one | character is allowed now (Credits to Lickorice)
+- Added pages for Custom Commands List
+- Changed the JSON library from JSON Simple to Java EE JSON (Requires Glassfish and Java EE)
