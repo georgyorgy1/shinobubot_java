@@ -22,12 +22,12 @@ public class RemoveCustomCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        if (ce.isOwner() || ce.getMember().hasPermission(Permission.MANAGE_SERVER))
+        if (event.isOwner() || event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
-            Logger logger = LoggerFactory.getLogger("org.georgyorgy1.shinobu.commands.util.AddCustomCommand");
-            String[] args = ce.getArgs().split("\\s+");
+            Logger logger = LoggerFactory.getLogger(RemoveCustomCommand.class.getName());
+            String[] args = event.getArgs().split("\\s+");
             String url = "jdbc:sqlite:files/shinobu.db";
             Connection connection = null;
             
@@ -42,12 +42,13 @@ public class RemoveCustomCommand extends Command
             }
             
             PreparedStatement preparedStatement = null;
-            String sql = "DELETE FROM custom_commands WHERE rowid = ?";
+            String sql = "DELETE FROM custom_commands WHERE rowid = ? AND guild = ?";
             
             try
             {
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, args[0]);
+                preparedStatement.setString(2, event.getGuild().getId());
                 preparedStatement.execute();
             }
             
@@ -56,17 +57,33 @@ public class RemoveCustomCommand extends Command
                 logger.error(exception.toString(), exception);
             }
             
-            try
+            finally 
             {
-                connection.close();
+                try
+                {
+                    preparedStatement.close();
+                }
+                
+                catch (SQLException exception)
+                {
+                    logger.error(exception.toString());
+                }
+                
+                finally
+                {
+                    try
+                    {
+                        connection.close();
+                    }
+
+                    catch (SQLException exception)
+                    {
+                        logger.error(exception.toString());
+                    }
+                }
             }
             
-            catch (SQLException exception)
-            {
-                logger.error(exception.toString(), exception);
-            }
-            
-            ce.reply("Command removed!");
+            event.reply("Command removed!");
         }
     }
 }

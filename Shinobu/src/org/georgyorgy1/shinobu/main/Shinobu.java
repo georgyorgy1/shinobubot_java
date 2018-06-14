@@ -24,9 +24,9 @@ package org.georgyorgy1.shinobu.main;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.JDA;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
@@ -64,27 +63,32 @@ public class Shinobu
     {
         Logger logger = LoggerFactory.getLogger(Shinobu.class.getName());
         
-        //Get config from JSON
-        JSONParser parser = new JSONParser();
-        JSONObject object = null;
+        JsonReader reader = null;
         
-        try 
+        //Get information from JSON file
+        try
         {
-            object = (JSONObject) parser.parse(new FileReader("files/config.json"));
+            reader = Json.createReader(new FileReader("files/config.json"));
         }
         
-        catch (ParseException ex)
+        catch (IOException exception)
         {
-            logger.error(ex.toString());
+            logger.error(exception.toString());
         }
+        
+        //Get objects
+        JsonObject object = reader.readObject();
+        
+        //Close Reader
+        reader.close();
         
         //Create a new bot client
         CommandClientBuilder client = new CommandClientBuilder();
 
         //Setup bot presence
         client.setGame(Game.playing("!cmds for commands"));
-        client.setOwnerId(object.get("owner_id").toString());
-        client.setPrefix(object.get("prefix").toString());
+        client.setOwnerId(object.getString("owner_id"));
+        client.setPrefix(object.getString("prefix"));
         
         //Add commands
         client.addCommand(new ShutdownCommand());
@@ -108,16 +112,19 @@ public class Shinobu
         //no defaults
         client.useHelpBuilder(false);
 
-        //Start bot
-        JDA jda = new JDABuilder(AccountType.BOT).setToken(object.get("token").toString()).addEventListener(new EventWaiter()).addEventListener(client.build()).addEventListener(new CustomCommand()).buildAsync();
+        //Prepare bot
+        JDABuilder shard = new JDABuilder(AccountType.BOT).setToken(object.getString("token"));
         
-        /*
+        //Add commands and events
+        shard.addEventListener(new EventWaiter());
+        shard.addEventListener(new CustomCommand());
+        shard.addEventListener(client.build());
+        
         int maxShard = 1;
 
         for (int i = 0; i < maxShard; i++)
         {
             shard.useSharding(i, maxShard).buildAsync();
         }
-        */
     }
 }

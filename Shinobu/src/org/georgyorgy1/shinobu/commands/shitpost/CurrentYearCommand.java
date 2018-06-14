@@ -12,9 +12,9 @@ public class CurrentYearCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        String args = ce.getArgs();
-        ce.reply(">" + args + " in the current year.");
+        String args = event.getArgs();
+        event.reply(">" + args + " in the current year.");
     }
 }

@@ -59,34 +59,37 @@ public class CustomCommand extends ListenerAdapter
             {
                 logger.error(exception.toString(), exception);
             }
+            
+            finally
+            {
+                try
+                {
+                    preparedStatement.close();
+                }
+                
+                catch (SQLException exception)
+                {
+                    logger.error(exception.toString());
+                }
+                
+                finally
+                {
+                    try
+                    {
+                        connection.close();
+                    }
+                    
+                    catch (SQLException exception)
+                    {
+                        logger.error(exception.toString());
+                    }
+                }
+            }
 
             if (!response.equals(""))
             {
                 MessageChannel channel = event.getChannel();
                 channel.sendMessage(response).queue();
-
-                try
-                {
-                    connection.close();
-                }
-
-                catch (SQLException exception)
-                {
-                    logger.error(exception.toString(), exception);
-                }
-            }
-
-            else
-            {
-                try
-                {
-                    connection.close();
-                }
-
-                catch (SQLException exception)
-                {
-                    logger.error(exception.toString(), exception);
-                }
             }
         }
     }

@@ -12,9 +12,9 @@ public class MindtrickCommand extends Command
     }
     
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        String[] args = ce.getArgs().split("\\s+");
+        String[] args = event.getArgs().split("\\s+");
         String message = "";
         
         for (int i = 1; i < args.length; i++)
@@ -22,7 +22,7 @@ public class MindtrickCommand extends Command
             message = message + args[i] + " ";
         }
         
-        ce.getJDA().getTextChannelById(Long.parseLong(args[0])).sendMessage(message).queue();
-        ce.reply("Message sent!");
+        event.getJDA().getTextChannelById(Long.parseLong(args[0])).sendMessage(message).queue();
+        event.reply("Message sent!");
     }
 }

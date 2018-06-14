@@ -22,14 +22,13 @@ public class RemoveRoleCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        if (ce.getMember().hasPermission(Permission.MANAGE_ROLES))
+        if (event.getMember().hasPermission(Permission.MANAGE_ROLES))
         {
-            String[] args = ce.getArgs().split("\\s+");
+            String[] args = event.getArgs().split("\\s+");
             String user = args[0].replace("<", "").replace("@", "").replace("!", "").replace(">", "");
             List<String> combinedStrings = new ArrayList<String>();
-            Logger logger = LoggerFactory.getLogger(RemoveRoleCommand.class.getName());
 
             for (int i = 1; i < args.length; i++)
             {
@@ -37,35 +36,36 @@ public class RemoveRoleCommand extends Command
             }
             
             String roleName = String.join(" ", combinedStrings);
+            Logger logger = LoggerFactory.getLogger(RemoveRoleCommand.class.getName());
 
             try
             {
-                ce.getEvent().getGuild().getController().removeSingleRoleFromMember(ce.getGuild().getMemberById(user), ce.getEvent().getGuild().getRolesByName(roleName, true).get(0)).queue();
-                ce.reply("The role named " + roleName + " was removed from <@!" + user + ">");
+                event.getEvent().getGuild().getController().removeSingleRoleFromMember(event.getGuild().getMemberById(user), event.getEvent().getGuild().getRolesByName(roleName, true).get(0)).queue();
+                event.reply("The role named " + roleName + " was removed from <@!" + user + ">");
             }
             
-            catch (HierarchyException ex)
+            catch (HierarchyException exception)
             {
-                logger.error(ex.toString());
-                ce.reply("I cannot remove that role due to an issue with the role hierarchy.");
+                logger.error(exception.toString());
+                event.reply("I cannot remove that role due to an issue with the role hierarchy.");
             }
             
-            catch (InsufficientPermissionException ex)
+            catch (InsufficientPermissionException exception)
             {
-                logger.error(ex.toString());
-                ce.reply("I do not have the permission to remove the user's role.");
+                logger.error(exception.toString());
+                event.reply("I do not have the permission to remove the user's role.");
             }
             
-            catch (IndexOutOfBoundsException ex)
+            catch (IndexOutOfBoundsException exception)
             {
-                logger.error(ex.toString());
-                ce.reply("The role you are trying to remove does not exist!");
+                logger.error(exception.toString());
+                event.reply("The role you are trying to remove does not exist!");
             }
         }
         
         else
         {
-            ce.reply("You do not have the Manage Roles permission!");
+            event.reply("You do not have the Manage Roles permission!");
         }
     }
 }

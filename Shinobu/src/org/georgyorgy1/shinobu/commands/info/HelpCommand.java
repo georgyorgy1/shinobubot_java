@@ -3,9 +3,9 @@ package org.georgyorgy1.shinobu.commands.info;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,32 +23,32 @@ public class HelpCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        String helpInfo = null;
-        JSONParser parser = new JSONParser();
-        JSONObject object = null;
+        JsonReader reader = null;
         Logger logger = LoggerFactory.getLogger(HelpCommand.class.getName());
-
+        
+        //Open JSON file
         try
         {
-            try 
-            {
-                object = (JSONObject) parser.parse(new FileReader("files/help.json"));
-            } 
-            
-            catch (ParseException ex) 
-            {
-                logger.error(ex.toString());
-            }
-            
-            helpInfo = object.get("help_string").toString();
-            ce.reply(helpInfo);
+            reader = Json.createReader(new FileReader("files/help.json"));
         }
-
+        
         catch (IOException exception)
         {
-            logger.error(exception.toString(), exception);
+            logger.error(exception.toString());
         }
+        
+        //Get objects
+        JsonObject object = reader.readObject();
+        
+        //Close reader
+        reader.close();
+        
+        //Get string
+        String helpString = object.getString("help_string");
+
+        //reply
+        event.reply(helpString);
     }
 }

@@ -4,8 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/commands/util/CustomCommand.java</file>
+            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/commands/moderation/SetRoleCommand.java</file>
+            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/commands/owner/MindtrickCommand.java</file>
+            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/objects/AuditLogEvent.java</file>
+            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/events/SetRoleEvent.java</file>
             <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/main/Shinobu.java</file>
-            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/commands/util/ListCustomCommand.java</file>
+            <file>file:/C:/Users/meatwad/Documents/Shinobu/src/org/georgyorgy1/shinobu/commands/moderation/BanCommand.java</file>
         </group>
     </open-files>
 </project-private>

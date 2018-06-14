@@ -22,11 +22,11 @@ public class SetRoleCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        if (ce.getMember().hasPermission(Permission.MANAGE_ROLES))
+        if (event.getMember().hasPermission(Permission.MANAGE_ROLES))
         {
-            String[] args = ce.getArgs().split("\\s+");
+            String[] args = event.getArgs().split("\\s+");
             String user = args[0].replace("<", "").replace("@", "").replace("!", "").replace(">", "");
             List<String> combinedStrings = new ArrayList<String>();
             Logger logger = LoggerFactory.getLogger(SetRoleCommand.class.getName());
@@ -40,32 +40,32 @@ public class SetRoleCommand extends Command
 
             try
             {
-                ce.getEvent().getGuild().getController().addSingleRoleToMember(ce.getGuild().getMemberById(user), ce.getEvent().getGuild().getRolesByName(roleName, true).get(0)).queue();
-                ce.reply("<@!" + user + "> was given the role named " + roleName);
+                event.getEvent().getGuild().getController().addSingleRoleToMember(event.getGuild().getMemberById(user), event.getEvent().getGuild().getRolesByName(roleName, true).get(0)).queue();
+                event.reply("<@!" + user + "> was given the role named " + roleName);
             }
             
-            catch (HierarchyException ex)
+            catch (HierarchyException exception)
             {
-                logger.error(ex.toString());
-                ce.reply("I cannot add that role due to an issue with the role hierarchy.");
+                logger.error(exception.toString());
+                event.reply("I cannot add that role due to an issue with the role hierarchy.");
             }
             
-            catch (InsufficientPermissionException ex)
+            catch (InsufficientPermissionException exception)
             {
-                logger.error(ex.toString());
-                ce.reply("I do not have the permission to add a role.");
+                logger.error(exception.toString());
+                event.reply("I do not have the permission to add a role.");
             }
             
-            catch (IndexOutOfBoundsException ex)
+            catch (IndexOutOfBoundsException exception)
             {
-                logger.error(ex.toString());
-                ce.reply("The role you are trying to assign does not exist!");
+                logger.error(exception.toString());
+                event.reply("The role you are trying to assign does not exist!");
             }
         }
         
         else
         {
-            ce.reply("You do not have the Manage Roles permission!");
+            event.reply("You do not have the Manage Roles permission!");
         }
     }
 }

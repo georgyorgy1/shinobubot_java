@@ -14,9 +14,9 @@ public class CheckEmCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
         int postNumber = new Random().nextInt((999999999 - 100000000) + 1) - 100000000;
-        ce.reply("Check em!" + "\n" + "Your number: " + Integer.toString(postNumber));
+        event.reply("Check em!" + "\n" + "Your number: " + Integer.toString(postNumber));
     }
 }

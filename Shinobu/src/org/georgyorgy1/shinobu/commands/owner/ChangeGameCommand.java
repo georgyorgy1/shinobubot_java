@@ -14,12 +14,12 @@ public class ChangeGameCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        if (ce.isOwner() == true)
+        if (event.isOwner() == true)
         {
-            ce.getJDA().getPresence().setGame(Game.of(Game.GameType.DEFAULT, ce.getArgs()));
-            ce.reply("Successfully changed game name to: " + ce.getArgs());
+            event.getJDA().getPresence().setGame(Game.of(Game.GameType.DEFAULT, event.getArgs()));
+            event.reply("Successfully changed game name to: " + event.getArgs());
         }
     }
 }

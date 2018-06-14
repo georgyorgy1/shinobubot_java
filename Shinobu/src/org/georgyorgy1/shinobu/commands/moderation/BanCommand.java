@@ -1,11 +1,13 @@
 package org.georgyorgy1.shinobu.commands.moderation;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.dv8tion.jda.core.exceptions.HierarchyException;
+import net.dv8tion.jda.core.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.core.Permission;
 
 import com.jagrosh.jdautilities.command.Command;
@@ -19,11 +21,11 @@ public class BanCommand extends Command
     }
     
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        if (ce.getMember().hasPermission(Permission.BAN_MEMBERS))
+        if (event.getMember().hasPermission(Permission.BAN_MEMBERS))
         {
-            String[] args = ce.getArgs().split("\\s+");
+            String[] args = event.getArgs().split("\\s+");
             String user = args[0].replace("<", "").replace("@", "").replace("!", "").replace(">", "");
             List<String> combinedStrings = new ArrayList<String>();
 
@@ -38,14 +40,31 @@ public class BanCommand extends Command
             {
                 reason = "No reason was provided.";
             }
-
-            ce.getGuild().getController().ban(ce.getGuild().getMemberById(user), 1, reason + " | " + " Moderator: " + ce.getAuthor().getName() + "#" + ce.getAuthor().getDiscriminator()).queue();
-            ce.reply("<@!" + user + "> was banned from the server with the following reason: " + reason);
+            
+            Logger logger = LoggerFactory.getLogger(BanCommand.class.getName());
+            
+            try
+            {
+                event.getGuild().getController().ban(event.getGuild().getMemberById(user), 1, reason + " | " + " Moderator: " + event.getAuthor().getName() + "#" + event.getAuthor().getDiscriminator()).queue();
+                event.reply("<@!" + user + "> was banned from the server with the following reason: " + reason);
+            }
+            
+            catch (HierarchyException exception)
+            {
+                logger.error(exception.toString());
+                event.reply("I cannot ban that user due to an issue with the role hierarchy.");
+            }
+            
+            catch (InsufficientPermissionException exception)
+            {
+                logger.error(exception.toString());
+                event.reply("I do not have the permission to ban that user.");
+            }
         }
         
         else
         {
-            ce.reply("You do not have the Ban Members permission!");
+            event.reply("You do not have the Ban Members permission!");
         }
     } 
 }

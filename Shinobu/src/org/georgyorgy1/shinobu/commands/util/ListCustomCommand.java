@@ -21,17 +21,18 @@ public class ListCustomCommand extends Command
     public ListCustomCommand()
     {
         this.name = "lcr";
-        this.help = "List custom commands. For owners and admins only.";
+        this.help = "List custom commands. Pages start at 0. For owners and admins only.";
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        if (ce.isOwner() || ce.getMember().hasPermission(Permission.MANAGE_SERVER))
+        if (event.isOwner() || event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
             Logger logger = LoggerFactory.getLogger("org.georgyorgy1.shinobu.commands.util.ListCustomCommand");
             Connection connection = null;
             String url = "jdbc:sqlite:files/shinobu.db";
+            String[] args = event.getArgs().split("\\s+");
 
             try
             {
@@ -40,19 +41,35 @@ public class ListCustomCommand extends Command
 
             catch (SQLException exception)
             {
-                logger.error(null, exception);
+                logger.error(exception.toString());
             }
 
             PreparedStatement preparedStatement = null;
-            String sql = "SELECT rowid, command_name, response FROM custom_commands WHERE guild = ?";
+            String sql = "SELECT rowid, command_name, response FROM custom_commands WHERE guild = ? LIMIT 10 OFFSET ?";
             List<String> rowIds = new ArrayList<>();
             List<String> commandNames = new ArrayList<>();
             List<String> responses = new ArrayList<>();
+            int pageNumber = 0;
+            
+            if (!args[0].isEmpty())
+            {
+                try
+                {
+                    pageNumber = Integer.parseInt(args[0]) * 10;
+                }
+
+                catch (NumberFormatException exception)
+                {
+                    logger.warn(exception.toString());
+                    event.reply("That is not a valid page number.");
+                }
+            }
 
             try
             {
                 preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, ce.getGuild().getId());
+                preparedStatement.setString(1, event.getGuild().getId());
+                preparedStatement.setInt(2, pageNumber);
                 
                 ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -68,6 +85,32 @@ public class ListCustomCommand extends Command
             {
                 logger.error(exception.toString(), exception);
             }
+            
+            finally
+            {
+                try
+                {
+                    preparedStatement.close();
+                }
+                
+                catch (SQLException exception)
+                {
+                    logger.error(exception.toString());
+                }
+                
+                finally
+                {
+                    try
+                    {
+                        connection.close();
+                    }
+
+                    catch (SQLException exception)
+                    {
+                        logger.error(exception.toString());
+                    }
+                }
+            }
 
             String response = "";
             
@@ -78,22 +121,12 @@ public class ListCustomCommand extends Command
 
             if (response.equals(""))
             {
-                ce.reply("There are no custom commands for this guild.");
+                event.reply("No custom commands found. Either you have no commands in this guild or you have entered an invalid page number.");
             }
             
             else
             {
-                ce.reply(response);
-            }
-            
-            try
-            {
-                connection.close();
-            }
-            
-            catch (SQLException exception)
-            {
-                logger.error(exception.toString(), exception);
+                event.reply(response);
             }
         }
     }
