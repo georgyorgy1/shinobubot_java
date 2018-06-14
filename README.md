@@ -1,6 +1,6 @@
 # ShinobuBot
 ```
-Stage: Final
+Stage: Final/Release to Web
 Version: v1.0
 Build: 20180615-0206
 ```
