@@ -8,15 +8,15 @@ Build: 20180615-0206
 ShinobuBot is a cute multipurpose Discord Bot written in Java. It uses the JDA library to interact with Discord
 
 JDK Requirement:
-- Java 1.8 (OpenJDK 8 or Oracle JDK 8)
+- Java 1.8 (OpenJDK 8 or Oracle JDK 8) or higher
 
 Required Libraries:
 - JDA Discord Library (Latest) (with Dependencies)
 - JDA Utilites (All Jars) (Latest)
 - Logback
 - SLF4J
-- Java EE 7
-- Glassfish Server 
+- Java EE 7 or higher
+- Glassfish Server 4.1 or higher (Although newer versions of Glassfish are a pain to install on NetBeans 8.x)
 - SQLite Java Driver
 
 Installation:
