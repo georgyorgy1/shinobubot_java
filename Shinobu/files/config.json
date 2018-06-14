@@ -1,7 +1,7 @@
 {
-    "token": "<your token here>",
-    "owner_id": "<your account ID here>",
+    "token": "<Insert token here>",
+    "owner_id": "<Insert owner ID here>",
 	"prefix": "!",
-    "build": "20180515-1632",
-    "bot_name": "ShinobuBot v1.0 Beta"
+    "build": "20180615-0206",
+    "bot_name": "ShinobuBot v1.0"
 }
