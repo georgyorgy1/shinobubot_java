@@ -43,13 +43,14 @@ public class RemoveCustomCommand extends Command
             
             PreparedStatement preparedStatement = null;
             String sql = "DELETE FROM custom_commands WHERE rowid = ? AND guild = ?";
+            boolean fromCorrectGuild = false;
             
             try
             {
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, args[0]);
                 preparedStatement.setString(2, event.getGuild().getId());
-                preparedStatement.execute();
+                fromCorrectGuild = preparedStatement.execute();
             }
             
             catch (SQLException exception)
@@ -83,7 +84,15 @@ public class RemoveCustomCommand extends Command
                 }
             }
             
-            event.reply("Command removed!");
+            if (fromCorrectGuild == true)
+            {
+                event.reply("Command removed!");
+            }
+            
+            else
+            {
+                event.reply("The command you are trying to remove does not exist.");
+            }
         }
     }
 }
