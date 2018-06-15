@@ -29,7 +29,7 @@ public class AddCustomCommand extends Command
     {
         if (event.isOwner() || event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
-            Logger logger = LoggerFactory.getLogger("org.georgyorgy1.shinobu.commands.util.AddCustomCommand");
+            final Logger logger = LoggerFactory.getLogger(AddCustomCommand.class.getName());
             String[] args = event.getArgs().split("\\s+");
             List<String> temp = new ArrayList<>();
             boolean illegalCharacterFound = false;

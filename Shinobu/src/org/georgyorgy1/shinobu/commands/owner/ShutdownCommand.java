@@ -18,10 +18,10 @@ public class ShutdownCommand extends Command
     @Override
     protected void execute(CommandEvent event)
     {
-        Logger logger = LoggerFactory.getLogger("org.georgyorgy1.shinobu.commands.owner.ShutdownCommand");
-
         if (event.isOwner() == true)
         {
+            final Logger logger = LoggerFactory.getLogger(ShutdownCommand.class.getName());
+            
             event.reply("Shinobu is now shutting down. Please wait...");
             logger.info("Bot was called to shutdown.");
             event.getJDA().shutdown();

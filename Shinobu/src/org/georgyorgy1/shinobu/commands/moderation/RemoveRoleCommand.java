@@ -36,7 +36,7 @@ public class RemoveRoleCommand extends Command
             }
             
             String roleName = String.join(" ", combinedStrings);
-            Logger logger = LoggerFactory.getLogger(RemoveRoleCommand.class.getName());
+            final Logger logger = LoggerFactory.getLogger(RemoveRoleCommand.class.getName());
 
             try
             {

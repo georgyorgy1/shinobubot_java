@@ -25,19 +25,31 @@ public class AboutCommand extends Command
     
     private String getUptime()
     {
+        //Get total uptime
         long longUptime = ManagementFactory.getRuntimeMXBean().getUptime();
-
+        
+        //Get days
         long days = TimeUnit.MILLISECONDS.toDays(longUptime);
+        
+        //Update total
         longUptime = longUptime - TimeUnit.DAYS.toMillis(days);
         
+        //Get hours
         long hours = TimeUnit.MILLISECONDS.toHours(longUptime);
+        
+        //Update total
         longUptime = longUptime - TimeUnit.HOURS.toMillis(hours);
         
+        //Get minutes
         long minutes = TimeUnit.MILLISECONDS.toMinutes(longUptime);
+        
+        //Update Total
         longUptime = longUptime - TimeUnit.MILLISECONDS.toMillis(minutes);
         
+        //Get seconds
         long seconds = TimeUnit.MILLISECONDS.toSeconds(longUptime);
         
+        //To make sure hours, minutes and seconds does not go beyond 24 (for hours) or 60 (for minutes and seconds)
         if (hours >= 24)
         {
             hours = hours % 24;
@@ -53,15 +65,15 @@ public class AboutCommand extends Command
             seconds = seconds % 60;
         }
 
-        String uptime = Long.toString(days) + " days, " + Long.toString(hours) + " hours, " + Long.toString(minutes) + " minutes and " + Long.toString(seconds) + " seconds";
-        return uptime;
+        //Return uptime
+        return Long.toString(days) + " days, " + Long.toString(hours) + " hours, " + Long.toString(minutes) + " minutes and " + Long.toString(seconds) + " seconds";
     }
 
     @Override
     protected void execute(CommandEvent event)
     {
         JsonReader reader = null;
-        Logger logger = LoggerFactory.getLogger(HelpCommand.class.getName());
+        final Logger logger = LoggerFactory.getLogger(HelpCommand.class.getName());
         
         //Open JSON file
         try
@@ -71,7 +83,7 @@ public class AboutCommand extends Command
         
         catch (IOException exception)
         {
-            logger.error(exception.toString());
+            logger.error(null, exception);
         }
         
         //Get objects

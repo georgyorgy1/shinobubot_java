@@ -26,7 +26,7 @@ public class RemoveCustomCommand extends Command
     {
         if (event.isOwner() || event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
-            Logger logger = LoggerFactory.getLogger(RemoveCustomCommand.class.getName());
+            final Logger logger = LoggerFactory.getLogger(RemoveCustomCommand.class.getName());
             String[] args = event.getArgs().split("\\s+");
             String url = "jdbc:sqlite:files/shinobu.db";
             Connection connection = null;

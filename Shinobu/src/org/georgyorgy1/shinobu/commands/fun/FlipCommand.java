@@ -14,18 +14,18 @@ public class FlipCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
         int coin = new Random().nextInt(2);
 
         if (coin == 0)
         {
-            ce.reply("You got heads!");
+            event.reply("You got heads!");
         }
 
         else
         {
-            ce.reply("You got tails!");
+            event.reply("You got tails!");
         }
     }
 }

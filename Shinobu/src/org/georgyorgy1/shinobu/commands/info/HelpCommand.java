@@ -26,7 +26,7 @@ public class HelpCommand extends Command
     protected void execute(CommandEvent event)
     {
         JsonReader reader = null;
-        Logger logger = LoggerFactory.getLogger(HelpCommand.class.getName());
+        final Logger logger = LoggerFactory.getLogger(HelpCommand.class.getName());
         
         //Open JSON file
         try

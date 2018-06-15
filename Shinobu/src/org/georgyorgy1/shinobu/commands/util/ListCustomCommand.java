@@ -8,13 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.dv8tion.jda.core.Permission;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ListCustomCommand extends Command
 {
@@ -29,7 +29,7 @@ public class ListCustomCommand extends Command
     {
         if (event.isOwner() || event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
-            Logger logger = LoggerFactory.getLogger("org.georgyorgy1.shinobu.commands.util.ListCustomCommand");
+            final Logger logger = LoggerFactory.getLogger(ListCustomCommand.class.getName());
             Connection connection = null;
             String url = "jdbc:sqlite:files/shinobu.db";
             String[] args = event.getArgs().split("\\s+");
@@ -62,6 +62,7 @@ public class ListCustomCommand extends Command
                 {
                     logger.warn(exception.toString());
                     event.reply("That is not a valid page number.");
+                    return;
                 }
             }
 

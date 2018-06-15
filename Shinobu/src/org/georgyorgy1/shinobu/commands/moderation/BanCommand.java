@@ -41,7 +41,7 @@ public class BanCommand extends Command
                 reason = "No reason was provided.";
             }
             
-            Logger logger = LoggerFactory.getLogger(BanCommand.class.getName());
+            final Logger logger = LoggerFactory.getLogger(BanCommand.class.getName());
             
             try
             {

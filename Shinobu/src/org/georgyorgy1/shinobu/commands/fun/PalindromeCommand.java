@@ -12,19 +12,19 @@ public class PalindromeCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        String arg = ce.getArgs();
+        String arg = event.getArgs();
         StringBuilder palindrome = new StringBuilder();
 
         if (palindrome.append(arg).reverse().toString().equals(arg))
         {
-            ce.reply("It is a palindrome!");
+            event.reply("It is a palindrome!");
         }
 
         else
         {
-            ce.reply("It is not a palindrome!");
+            event.reply("It is not a palindrome!");
         }
     }
 }

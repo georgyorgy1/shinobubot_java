@@ -12,8 +12,8 @@ public class PingCommand extends Command
     }
 
     @Override
-    protected void execute(CommandEvent ce)
+    protected void execute(CommandEvent event)
     {
-        ce.reply("Pong!" + "\n" + "Latency: " + ce.getJDA().getPing() + "ms");
+        event.reply("Pong!" + "\n" + "Latency: " + event.getJDA().getPing() + "ms");
     }
 }

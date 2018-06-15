@@ -29,7 +29,6 @@ public class SetRoleCommand extends Command
             String[] args = event.getArgs().split("\\s+");
             String user = args[0].replace("<", "").replace("@", "").replace("!", "").replace(">", "");
             List<String> combinedStrings = new ArrayList<String>();
-            Logger logger = LoggerFactory.getLogger(SetRoleCommand.class.getName());
 
             for (int i = 1; i < args.length; i++)
             {
@@ -37,7 +36,8 @@ public class SetRoleCommand extends Command
             }
             
             String roleName = String.join(" ", combinedStrings);
-
+            final Logger logger = LoggerFactory.getLogger(SetRoleCommand.class.getName());
+            
             try
             {
                 event.getEvent().getGuild().getController().addSingleRoleToMember(event.getGuild().getMemberById(user), event.getEvent().getGuild().getRolesByName(roleName, true).get(0)).queue();

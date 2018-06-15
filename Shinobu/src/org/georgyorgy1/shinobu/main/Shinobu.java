@@ -27,6 +27,7 @@ import java.io.IOException;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.security.auth.login.LoginException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,10 +60,9 @@ import org.georgyorgy1.shinobu.commands.util.RemoveCustomCommand;
 
 public class Shinobu
 {
-    public static void main(String[] args) throws IOException, javax.security.auth.login.LoginException
+    public static void main(String[] args)
     {
-        Logger logger = LoggerFactory.getLogger(Shinobu.class.getName());
-        
+        final Logger logger = LoggerFactory.getLogger(Shinobu.class.getName());
         JsonReader reader = null;
         
         //Get information from JSON file
@@ -120,11 +120,20 @@ public class Shinobu
         shard.addEventListener(new CustomCommand());
         shard.addEventListener(client.build());
         
-        int maxShard = 1;
+        //Sharding
+        int shards = object.getInt("shards");
 
-        for (int i = 0; i < maxShard; i++)
+        for (int i = 0; i < shards; i++)
         {
-            shard.useSharding(i, maxShard).buildAsync();
+            try
+            {
+                shard.useSharding(i, shards).buildAsync();
+            }
+            
+            catch (LoginException exception)
+            {
+                logger.error(exception.toString());
+            }
         }
     }
 }

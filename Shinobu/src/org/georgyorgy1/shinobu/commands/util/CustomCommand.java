@@ -6,13 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CustomCommand extends ListenerAdapter
 {
@@ -22,7 +22,7 @@ public class CustomCommand extends ListenerAdapter
     {
         if (event.getAuthor().isBot() == false)
         {
-            Logger logger = LoggerFactory.getLogger("org.georgyorgy1.shinobu.commands.util.CustomCommand");
+            final Logger logger = LoggerFactory.getLogger(CustomCommand.class.getName());
             Connection connection = null;
             String url = "jdbc:sqlite:files/shinobu.db";
 

@@ -41,7 +41,7 @@ public class KickCommand extends Command
                 reason = "No reason was provided.";
             }
             
-            Logger logger = LoggerFactory.getLogger(KickCommand.class.getName());
+            final Logger logger = LoggerFactory.getLogger(KickCommand.class.getName());
             
             try
             {
