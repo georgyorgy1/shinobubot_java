@@ -37,6 +37,7 @@ public class CustomCommand extends ListenerAdapter
             }
 
             PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
             String sql = "SELECT response FROM custom_commands WHERE guild = ? AND command_name = ? ORDER BY RANDOM() LIMIT 1";
             Message message = event.getMessage();
             String response = "";
@@ -46,8 +47,7 @@ public class CustomCommand extends ListenerAdapter
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, event.getGuild().getId());
                 preparedStatement.setString(2, message.getContentDisplay());
-
-                ResultSet resultSet = preparedStatement.executeQuery();
+                resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next())
                 {
@@ -64,7 +64,7 @@ public class CustomCommand extends ListenerAdapter
             {
                 try
                 {
-                    preparedStatement.close();
+                    resultSet.close();
                 }
                 
                 catch (SQLException exception)
@@ -76,12 +76,25 @@ public class CustomCommand extends ListenerAdapter
                 {
                     try
                     {
-                        connection.close();
+                        preparedStatement.close();
                     }
-                    
+
                     catch (SQLException exception)
                     {
                         logger.error(exception.toString());
+                    }
+
+                    finally
+                    {
+                        try
+                        {
+                            connection.close();
+                        }
+
+                        catch (SQLException exception)
+                        {
+                            logger.error(exception.toString());
+                        }
                     }
                 }
             }

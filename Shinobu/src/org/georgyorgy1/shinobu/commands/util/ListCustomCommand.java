@@ -45,6 +45,7 @@ public class ListCustomCommand extends Command
             }
 
             PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
             String sql = "SELECT rowid, command_name, response FROM custom_commands WHERE guild = ? LIMIT 10 OFFSET ?";
             List<String> rowIds = new ArrayList<>();
             List<String> commandNames = new ArrayList<>();
@@ -71,8 +72,7 @@ public class ListCustomCommand extends Command
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, event.getGuild().getId());
                 preparedStatement.setInt(2, pageNumber);
-                
-                ResultSet resultSet = preparedStatement.executeQuery();
+                resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next())
                 {
@@ -91,7 +91,7 @@ public class ListCustomCommand extends Command
             {
                 try
                 {
-                    preparedStatement.close();
+                    resultSet.close();
                 }
                 
                 catch (SQLException exception)
@@ -103,12 +103,25 @@ public class ListCustomCommand extends Command
                 {
                     try
                     {
-                        connection.close();
+                        preparedStatement.close();
                     }
 
                     catch (SQLException exception)
                     {
                         logger.error(exception.toString());
+                    }
+
+                    finally
+                    {
+                        try
+                        {
+                            connection.close();
+                        }
+
+                        catch (SQLException exception)
+                        {
+                            logger.error(exception.toString());
+                        }
                     }
                 }
             }
