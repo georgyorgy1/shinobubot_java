@@ -15,3 +15,7 @@
 - Fixed a custom command bug. Only one | character is allowed now (Credits to Lickorice)
 - Added pages for Custom Commands List
 - Changed the JSON library from JSON Simple to Java EE JSON (Requires Glassfish and Java EE)
+- Changed release style to rolling release
+- Fixed a couple of bugs
+- Refactored some code
+- Sharding
