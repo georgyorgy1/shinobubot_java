@@ -2,7 +2,7 @@
     "token": "<Insert token here>",
     "owner_id": "<Insert owner ID here>",
 	"prefix": "!",
-    "build": "20180615-1803",
+    "build": "20180615-1813",
     "bot_name": "ShinobuBot",
 	"shards": <insert shard number (integer)>
 }
