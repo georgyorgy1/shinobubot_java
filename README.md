@@ -26,8 +26,8 @@ Self-hosting:
 3. Open SQLite and create the needed tables (check schema.sql). Save as shinobu.db.
 4. Copy shinobu.db to the files folder.
 5. Open config.json and edit the needed strings.
-6. Compile the bot.
-7. Now you're up and running.
+6. Compile the bot as Shinobu.jar.
+7. Run the jar file and you should be up and running (make sure the files and libraries folder are in the same directory as the jar file).
 To see the commands, type !cmds or !help.
 ```
 
