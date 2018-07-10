@@ -1,8 +1,0 @@
-{
-    "token": "<Insert token here>",
-    "owner_id": "<Insert owner ID here>",
-	"prefix": "!",
-    "build": "20180615-1906",
-    "bot_name": "ShinobuBot",
-	"shards": <insert shard number (integer)>
-}
