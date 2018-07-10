@@ -15,8 +15,8 @@ Required Libraries:
 - JDA Utilites (All Jars) (Latest)
 - Logback
 - SLF4J
-- Java EE 7 or higher
-- Glassfish Server 4.1 or higher (Although newer versions of Glassfish are a pain to install on NetBeans 8.x)
+- Java EE JSON Library 
+- Jave EE JSON API
 - SQLite Java Driver
 
 Self-hosting:
