@@ -1,6 +1,6 @@
 # ShinobuBot
 ```
-Build: 20180710-1700
+Build: 20180710-1755
 ```
 
 ShinobuBot is a cute multipurpose Discord Bot written in Java. It uses the JDA library to interact with Discord.
