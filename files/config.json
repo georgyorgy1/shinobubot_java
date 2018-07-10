@@ -2,9 +2,9 @@
     "token": "<Insert Token (String)>",
     "owner_id": "<Insert Owner ID (String)>",
     "client_id": "<Insert Bot Client ID (String)>",
-	"prefix": "!",
+    "prefix": "!",
     "build": "20180710-1700",
     "bot_name": "ShinobuBot",
-	"shards": <Insert Shard Number (Integer)>
-	"help_string": "Please see this link: https://github.com/georgyorgy1/shinobubot_java/wiki/Commands"
+    "shards": <Insert Shard Number (Integer)>
+    "help_string": "Please see this link: https://github.com/georgyorgy1/shinobubot_java/wiki/Commands"
 }
