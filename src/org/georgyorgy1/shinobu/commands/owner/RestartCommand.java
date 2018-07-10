@@ -1,3 +1,4 @@
+//Some stupid comment
 package org.georgyorgy1.shinobu.commands.owner;
 
 import java.io.IOException;
