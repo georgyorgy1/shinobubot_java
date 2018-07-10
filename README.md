@@ -31,3 +31,4 @@ Self-hosting:
 To see the commands, type !cmds or !help.
 ```
 
+Invite link to bot: https://discordapp.com/oauth2/authorize?client_id=382491524656529418&scope=bot&permissions=1073081543
