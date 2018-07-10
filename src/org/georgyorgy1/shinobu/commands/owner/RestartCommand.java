@@ -29,7 +29,7 @@ public class RestartCommand extends Command
                 Runtime.getRuntime().exec("java -jar Shinobu.jar");
                 logger.info("Shinobu is restrating, please wait...");
                 event.reply("Shinobu is restarting, please wait...");
-                System.exit(0);
+                System.exit(1);
             } 
             
             catch (IOException exception)
