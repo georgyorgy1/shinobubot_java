@@ -15,8 +15,7 @@ Required Libraries:
 - JDA Utilites (All Jars) (Latest)
 - Logback
 - SLF4J
-- Java EE JSON Library 
-- Jave EE JSON API
+- JSONP
 - SQLite Java Driver
 
 Self-hosting:
