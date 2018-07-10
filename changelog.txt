@@ -19,3 +19,7 @@
 - Fixed a couple of bugs
 - Refactored some code
 - Sharding
+
+2018-07-10:
+- Moderation actions logging. Supports manage roles and ban/unban events (for now).
+- Embeds for custom commands (limited to images only, for now).

@@ -1,0 +1,3 @@
+Valid JSON Entries:
+color - color (String)
+image - image URL (String)

@@ -1,12 +1,14 @@
 # ShinobuBot
 ```
-Build: 20180615-1906
+Build: 20180710-xxxx
 ```
 
-ShinobuBot is a cute multipurpose Discord Bot written in Java. It uses the JDA library to interact with Discord
+ShinobuBot is a cute multipurpose Discord Bot written in Java. It uses the JDA library to interact with Discord.
+
+NOTE: Self-hosting is not yet supported (partially). I'm working on this. Host at your own risk because I will not help you with self-hosting. This repository was created for transparency purposes and to showcase the capabilites of the bot. If you're going to use my codebase for your bot, please make sure you do it in accordance with the license (MIT License, because I love you guys).
 
 JDK Requirement:
-- Java 1.8 (OpenJDK 8 or Oracle JDK 8) or higher
+- OpenJDK 8 or higher
 
 Required Libraries:
 - JDA Discord Library (Latest) (with Dependencies)
@@ -17,30 +19,16 @@ Required Libraries:
 - Glassfish Server 4.1 or higher (Although newer versions of Glassfish are a pain to install on NetBeans 8.x)
 - SQLite Java Driver
 
-Installation:
+Self-hosting:
 ```
-Binary Installation:
-<coming soon>
-```
-
-```
-
-Building from source:
-1. Clone the repository
-2. Open the project folder using NetBeans
-3. Add the required libraries in NetBeans
-4. Edit config.json (located in the files directory)
-
+1. Clone the repository.
+2. Add to the required libraries to the classpath.
+3. Open SQLite and create the needed tables (check schema.sql). Save as shinobu.db.
+4. Copy shinobu.db to the files folder.
+5. Open config.json and edit the needed strings.
+6. Compile the bot as Shinobu.jar.
+7. Run the jar file and you should be up and running (make sure the files and libraries folder are in the same directory as the jar file).
 To see the commands, type !cmds or !help.
 ```
 
-If you see this while building, ignore it.
-```
-Not copying library X:\Shinobu\logback-core-1.2.3.jar , it can't be read.
-Not copying library X:\Shinobu\slf4j-api-1.7.25.jar , it can't be read.
-Not copying library X:\Shinobu\sqlite-jdbc-3.21.0.jar , it can't be read.
-Not copying library X:\Shinobu\json-simple-1.1.1.jar , it can't be read.
-Not copying library X:\Shinobu\JDA-3.6.0_365-withDependencies.jar , it can't be read.
-Not copying library X:\Shinobu\jda-utilities-command-2.1.1.jar , it can't be read.
-Not copying library X:\Shinobu\jda-utilities-commons-2.1.1.jar , it can't be read.
-```
+Invite link to bot: https://discordapp.com/oauth2/authorize?client_id=382491524656529418&scope=bot&permissions=1073081543
