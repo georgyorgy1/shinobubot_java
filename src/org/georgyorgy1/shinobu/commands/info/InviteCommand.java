@@ -5,6 +5,11 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 
 public class InviteCommand extends Command
 {
+    public InviteCommand()
+    {
+        this.name = "invite";
+    }
+    
     @Override
     protected void execute(CommandEvent event)
     {
