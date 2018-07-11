@@ -1,10 +1,10 @@
 //Some stupid comment
 package org.georgyorgy1.shinobu.commands.owner;
 
-import java.io.IOException;
-
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
