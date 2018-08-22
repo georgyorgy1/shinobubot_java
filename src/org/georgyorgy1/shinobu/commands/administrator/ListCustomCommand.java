@@ -34,7 +34,7 @@ public class ListCustomCommand extends Command
     @Override
     protected void execute(CommandEvent event)
     {
-        if (event.getMember().hasPermission(Permission.ADMINISTRATOR))
+        if (event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
             Connection connection = manager.openConnection();
             String[] args = event.getArgs().split("\\s+");
@@ -116,7 +116,7 @@ public class ListCustomCommand extends Command
         
         else
         {
-            event.reply("You do not have the Administrator permission!");
+            event.reply("You do not have the Manage Server permission!");
         }
     }
 }

@@ -29,7 +29,7 @@ public class SetLoggedRole extends Command
     @Override
     protected void execute(CommandEvent event)
     {
-        if (event.getMember().hasPermission(Permission.ADMINISTRATOR))
+        if (event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
             Connection connection = manager.openConnection();
             String statement = "INSERT INTO listed_roles VALUES (?, ?)";

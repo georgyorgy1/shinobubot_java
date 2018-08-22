@@ -30,7 +30,7 @@ public class RemoveCustomCommand extends Command
     @Override
     protected void execute(CommandEvent event)
     {
-        if (event.getMember().hasPermission(Permission.ADMINISTRATOR))
+        if (event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
             Connection connection = manager.openConnection();
             String statement = "DELETE FROM custom_commands WHERE rowid = ? AND guild = ?";
@@ -69,7 +69,7 @@ public class RemoveCustomCommand extends Command
         
         else
         {
-            event.reply("You do not have the Administrator permission!");
+            event.reply("You do not have the Manage Server permission!");
         }
     }
 }

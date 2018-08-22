@@ -30,16 +30,15 @@ public class SetInfractionsChannel extends Command
     @Override
     protected void execute(CommandEvent event)
     {
-        if (event.getMember().hasPermission(Permission.ADMINISTRATOR))
+        if (event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
             String[] args = event.getArgs().split("\\s+");
-            String privateChannel = args[0].replace("<", "").replace("#", "").replace(">", "");
-            String publicChannel = args[1].replace("<", "").replace("#", "").replace(">", "");
+            String[] channels = {args[0].replaceAll("[<#>]", ""), args[1].replaceAll("[<#>]", "")}; //0 private, 1 public
             Connection connection = manager.openConnection();
             String statement = "INSERT INTO infractions_channels VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = manager.openPreparedStatement(connection, statement);
             
-            if (privateChannel.isEmpty() || publicChannel.isEmpty())
+            if (channels[0].isEmpty() || channels[1].isEmpty())
             {
                 event.reply("Invalid channel ID(s)!");
             }
@@ -51,8 +50,8 @@ public class SetInfractionsChannel extends Command
                 try
                 {
                     preparedStatement.setString(1, guild);
-                    preparedStatement.setString(2, privateChannel);
-                    preparedStatement.setString(3, publicChannel);
+                    preparedStatement.setString(2, channels[0]);
+                    preparedStatement.setString(3, channels[1]);
                     preparedStatement.executeUpdate();
                 }
                 
@@ -73,7 +72,7 @@ public class SetInfractionsChannel extends Command
         
         else
         {
-            event.reply("You do not have the Administrator permission!");
+            event.reply("You do not have the Manage Server permission!");
         }
     }
 }

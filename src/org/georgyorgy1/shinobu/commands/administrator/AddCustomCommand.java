@@ -33,10 +33,10 @@ public class AddCustomCommand extends Command
     @Override
     protected void execute(CommandEvent event)
     {
-        if (event.getMember().hasPermission(Permission.ADMINISTRATOR))
+        //Check for illegal character (which is |)
+        if (event.getMember().hasPermission(Permission.MANAGE_SERVER))
         {
-            List<String> temp = new ArrayList<>();
-            boolean illegalCharacterFound = false;
+            boolean valid = true;
             String[] args = event.getArgs().split("\\s+");
 
             //Credits to Lickorice
@@ -46,14 +46,15 @@ public class AddCustomCommand extends Command
                 {
                     if (args[g - 1].equals("|"))
                     {
-                        illegalCharacterFound = true;
+                        valid = false;
                     }
                 }
             }
             
-            if (illegalCharacterFound == false)
+            if (valid)
             {
                 int i = 0;
+                List<String> temp = new ArrayList<>();
 
                 while (!args[i].equals("|"))
                 {
@@ -103,7 +104,7 @@ public class AddCustomCommand extends Command
         
         else
         {
-            event.reply("You do not have the Administrator permission!");
+            event.reply("You do not have the Manage Server permission!");
         }
     }
 }

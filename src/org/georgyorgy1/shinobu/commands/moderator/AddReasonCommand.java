@@ -3,13 +3,10 @@ package org.georgyorgy1.shinobu.commands.moderator;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.Permission;
 
 import org.georgyorgy1.shinobu.events.tables.Infraction;
-import org.georgyorgy1.shinobu.events.tables.InfractionChannel;
+import org.georgyorgy1.shinobu.events.tables.Channel;
 
 public class AddReasonCommand extends Command
 {
@@ -21,22 +18,25 @@ public class AddReasonCommand extends Command
     @Override
     protected void execute(CommandEvent event)
     {
+        Infraction infraction = null;
+        Channel channel = null;
+        int caseNumber = -1;
+        String log = "";
+        
         if (event.getMember().hasPermission(Permission.MANAGE_ROLES))
         {
-            Infraction infraction = new Infraction();
-            Guild guild = event.getGuild();
-            int caseNumber = infraction.getLatestCaseNumber(guild);
-            String reason = event.getArgs();
-            String message = infraction.getPublicLogMessage(caseNumber, reason);
-            InfractionChannel channel = new InfractionChannel();
-            String channelId = channel.getPublicChannel(guild);
-            JDA jda = event.getJDA();
-            MessageChannel publicChannel = jda.getTextChannelById(channelId);
-            String messageId = publicChannel.getLatestMessageId();
-            
-            infraction.setMessageId(messageId, caseNumber);
-            publicChannel.editMessageById(infraction.getMessageId(caseNumber), message).queue();
-            event.reply("Reason sent!");
+            infraction = new Infraction();            
+            channel = new Channel(event.getGuild(), event.getJDA());
+            caseNumber = infraction.getLatestCaseNumber(event.getGuild());
+            log = infraction.getPublicLogMessage(caseNumber, event.getArgs());
+            infraction.setMessageId(channel.getChannel(1).getLatestMessageId(), caseNumber);
+            channel.editMessage(channel.getChannel(1), infraction.getMessageId(caseNumber), log); //channel, messageId(caseNumber), reason
+            event.reply("Log message sent!");
+        }
+        
+        else
+        {
+            event.reply("You are not allowed to modify moderation logs!");
         }
     }
 }

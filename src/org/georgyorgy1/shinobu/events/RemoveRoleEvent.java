@@ -1,35 +1,27 @@
 package org.georgyorgy1.shinobu.events;
 
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import net.dv8tion.jda.core.JDA;
 
 import org.georgyorgy1.shinobu.events.tables.Infraction;
-import org.georgyorgy1.shinobu.events.tables.InfractionChannel;;
+import org.georgyorgy1.shinobu.events.tables.Channel;;
 
 public class RemoveRoleEvent extends ListenerAdapter
 {
     @Override
     public void onGuildMemberRoleRemove(GuildMemberRoleRemoveEvent event)
     {
+        //Get infraction
         Infraction infraction = new Infraction();
-        Guild guild = event.getGuild();
-        Role role = event.getRoles().get(0);
         
-        if (infraction.isRoleLoggable(guild, role))
+        //Check if role is logged
+        if (infraction.isRoleLoggable(event.getGuild(), event.getRoles().get(0)))
         {
-            InfractionChannel channel = new InfractionChannel();
-            JDA jda = event.getJDA();
-            String publicChannelId = channel.getPublicChannel(guild);
-            MessageChannel publicChannel = jda.getTextChannelById(publicChannelId);
-            User user = event.getUser();
-            String message = infraction.getRemovalMessage(guild, user, role);
+            //Get channels
+            Channel channel = new Channel(event.getGuild(), event.getJDA());
             
-            publicChannel.sendMessage(message).queue();
+            //Send message
+            channel.sendMessage(channel.getChannel(1), infraction.getRemovalMessage(event.getGuild(), event.getUser(), event.getRoles().get(0))); //send_message looks better xd
         }
     }
 }
